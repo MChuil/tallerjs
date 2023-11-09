@@ -31,6 +31,8 @@ Solicita al usuario su edad y mandale un mensaje respetando las siguientes regla
 * Si tiene de 26 a 60 años 'Eres adulto'
 * Si tiene de 61 a 80 años 'Eres adulto mayor'
 * Si tiene mas de 81 años 'Eres Matusalem'
+
+
 Validar que el dato que el usuario introduzca sea numerico, si no, envarle un mensaje de error
 
 
@@ -55,5 +57,9 @@ Crear el objeto 'CuentaBancaria' con los siguientes datos:
 * saldo (sera una funcion matematica de: depositos - retiros)
 * depositar (sera una funcion que reciba la cantidad a depositar y aumente el valor a 'depositos')
 * retirar (sera una funcion que reciba la cantidad a retirar y aumente el valor a 'retiros')
+
+## Ejercicio 7
+Crea el objeto calculadora, el cual tendra 4 metodos: sumar, restar, dividir y multiplicar. 
+Cada metodo solicitara 2 parámetros y debera realizar la operación correspondiente y mostrar el resultado en consola.
 
 > La tecnología es fácil de aprender, dependiendo quien te la enseñe. - Escuela CTEC
