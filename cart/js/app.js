@@ -1,10 +1,9 @@
-let articulos = [];
+let articulos = [];  //arreglo vacio
 
 
-function addProduct(id){
+function addProduct(id){ //id = 3
     let card = document.querySelector(`#card-${id}`)
-    console.log(card)
-
+    
     const detalle = {
         id: id,
         imagen: card.querySelector('img').src,
@@ -13,23 +12,83 @@ function addProduct(id){
         cantidad: 1
     }
 
-    articulos.push(detalle)
+    // let ejemplo = {} Objeto
+    // let ejemplo = [] Array
+    if(articulos.length == 0){ //si el array esta vacio
+        articulos.push(detalle); //agregando el objeto al array
+    }else{ //si no esta vacio
+        //buscar que en el array no exista ese producto
+        let existe = false;
+        articulos.forEach(function(row){
+            if(row.id == id){  //si existe
+                existe = true;
+            }
+        })
 
+        if(existe == true){
+            articulos.forEach(function(row){
+                if(row.id == id){  //si existe
+                    row.cantidad += 1;
+                }
+            })
+        }else{
+            articulos.push(detalle); //agregando el objeto al array
+        }
+    }
     let listaCarrito = document.querySelector('#lista-carrito')
-    listaCarrito.querySelector('tbody').innerHTML = ''
-    articulos.forEach(function(item){
+    let tbody = listaCarrito.querySelector('tbody')
+    tbody.textContent = ''
+    articulos.forEach(function(row){
         let fila = document.createElement('tr')
         fila.innerHTML = `
             <td>
-                <img src='${item.imagen}' width='80'>
+                <img src='${row.imagen}' width='80'>
             </td>
-            <td>${item.titulo}</td>
-            <td>${item.precio}</td>
-            <td>${item.cantidad}</td>
+            <td>${row.titulo}</td>
+            <td>${row.precio}</td>
+            <td>${row.cantidad}</td>
             <td>
-                <a href='#' class='borrar-curso' onclick='eliminar(${item.id})'>x</a>
+                <a href='#' class='borrar-curso' onclick='eliminar(${row.id})'>x</a>
             </td>`
-        listaCarrito.appendChild(fila)
+            tbody.appendChild(fila)
     })
-    console.log(articulos)
+
+    document.querySelector('#count').textContent = articulos.length
+}
+
+function eliminar(id){
+    let newArray = articulos.filter(function(row){
+        if(row.id != id){
+            return row
+        }
+    })
+    articulos = newArray;
+    let listaCarrito = document.querySelector('#lista-carrito')
+    let tbody = listaCarrito.querySelector('tbody')
+    tbody.textContent = ''
+    articulos.forEach(function(row){
+        let fila = document.createElement('tr')
+        fila.innerHTML = `
+            <td>
+                <img src='${row.imagen}' width='80'>
+            </td>
+            <td>${row.titulo}</td>
+            <td>${row.precio}</td>
+            <td>${row.cantidad}</td>
+            <td>
+                <a href='#' class='borrar-curso' onclick='eliminar(${row.id})'>x</a>
+            </td>`
+            tbody.appendChild(fila)
+    })
+    document.querySelector('#count').textContent = articulos.length
+}
+
+function deleteCar(){
+    //borrar el array
+    articulos = [];
+    //borrar el contenido del tbody
+    let listaCarrito = document.querySelector('#lista-carrito')
+    let tbody = listaCarrito.querySelector('tbody')
+    tbody.textContent = ''
+    document.querySelector('#count').textContent = 0
 }
